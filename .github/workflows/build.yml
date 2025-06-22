@@ -1,0 +1,24 @@
+name: build and test
+on:
+  push:
+  pull_request:
+  release:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: bash build-toolchain.sh
+      - run: tar cvf - m68k-toolchain/ | pzstd -17 > m68k-toolchain-x64-linux.tar.zst
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m68k-toolchain-x64-linux
+          path: m68k-toolchain-x64-linux.tar.zst
+          compression-level: 0
+      - uses: shogo82148/actions-upload-release-asset@v1
+        if: ${{ github.event_name == 'release' }}
+        with:
+          asset_path: "m68k-toolchain-x64-linux.tar.zstd"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          upload_url: ${{ github.event.release.upload_url }}

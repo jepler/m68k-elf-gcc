@@ -49,7 +49,7 @@ export LD_FOR_TARGET=${PREFIX}ld
 export AS_FOR_TARGET=${PREFIX}as
 export AR_FOR_TARGET=${PREFIX}ar
 export RANLIB_FOR_TARGET=${PREFIX}ranlib
-export newlib_cflags="${newlib_cflags} -DPREFER_SIZE_OVER_SPEED -D__OPTIMIZE_SIZE__"
+export newlib_cflags="${newlib_cflags} -DPREFER_SIZE_OVER_SPEED -D__OPTIMIZE_SIZE__ -mshort"
 
 # Move into build dir
 cd ${BUILD_DIR}/${DIR}
